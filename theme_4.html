@@ -1,0 +1,1215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Chandrakanth & Anusha — Wedding</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Italianno&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --onyx:#0c0c10;
+  --jet:#13131a;
+  --obsidian:#1a1a24;
+  --chrome:#d8d8e8;
+  --silver:#c0c0d8;
+  --pearl:#f5f0ff;
+  --shimmer1:#e8d5ff;
+  --shimmer2:#d5e8ff;
+  --shimmer3:#ffd5e8;
+  --shimmer4:#ffe8d5;
+  --shimmer5:#d5ffd5;
+  --gold:#f0d080;
+  --gold2:#f8e8a0;
+  --gold3:#fffbe0;
+  --iris:#a090e0;
+  --iris2:#c0b0f8;
+  --champagne:#f8e8c0;
+  --champagne2:#fff5dc;
+  --white:rgba(255,255,255,0.92);
+  --mist:rgba(220,215,255,0.55);
+  --faint:rgba(220,215,255,0.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  background:var(--onyx);
+  color:var(--chrome);
+  overflow-x:hidden;
+}
+
+/* ===== SHIMMER CANVAS ===== */
+#shimmerCanvas{position:fixed;inset:0;pointer-events:none;z-index:0}
+
+/* ===== PRISMATIC HIGHLIGHT ===== */
+@keyframes prism{
+  0%  {background-position:0% 50%}
+  50% {background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+.prism-text{
+  background:linear-gradient(90deg,
+    var(--shimmer1),var(--gold2),var(--shimmer2),
+    var(--shimmer3),var(--gold3),var(--shimmer1),
+    var(--iris2),var(--champagne),var(--shimmer2));
+  background-size:300% 100%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:prism 6s ease-in-out infinite;
+}
+.prism-text-fast{
+  background:linear-gradient(90deg,
+    var(--shimmer1),var(--gold2),var(--shimmer2),
+    var(--shimmer3),var(--gold3),var(--shimmer1),
+    var(--iris2),var(--champagne),var(--shimmer2));
+  background-size:300% 100%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:prism 3s ease-in-out infinite;
+}
+
+/* ===== SPLASH ===== */
+#splash{
+  position:fixed;inset:0;z-index:9999;
+  background:radial-gradient(ellipse at 50% 40%,#1a1530 0%,var(--onyx) 70%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6rem;
+  transition:opacity 1.2s ease,visibility 1.2s ease;
+}
+#splash.out{opacity:0;visibility:hidden;pointer-events:none}
+.sp-star{
+  position:relative;width:80px;height:80px;
+  display:flex;align-items:center;justify-content:center;
+}
+.sp-star svg{width:80px;height:80px;animation:starspin 10s linear infinite}
+@keyframes starspin{to{transform:rotate(360deg)}}
+.sp-star-inner{
+  position:absolute;
+  font-size:1.8rem;
+  animation:starspin 10s linear infinite reverse;
+}
+.sp-name{
+  font-family:'Italianno',cursive;
+  font-size:clamp(2.2rem,6vw,2.8rem);
+  opacity:0;animation:shinein .9s ease .5s forwards;
+}
+@keyframes shinein{
+  from{opacity:0;transform:translateY(16px) scale(.96)}
+  to{opacity:1;transform:none}
+}
+.sp-tag{
+  font-family:'Cinzel',serif;font-size:.62rem;
+  letter-spacing:.5em;text-transform:uppercase;
+  color:var(--gold);
+  opacity:0;animation:shinein 1s ease 1.1s forwards;
+}
+.sp-bar{
+  width:200px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--iris2),var(--gold2),var(--iris2),transparent);
+  animation:barshine 2s ease 1.5s forwards;
+  opacity:0;
+}
+@keyframes barshine{to{opacity:1}}
+.sp-dots{display:flex;gap:8px;opacity:0;animation:shinein .5s ease 1.7s forwards}
+.sp-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:linear-gradient(135deg,var(--iris2),var(--gold2));
+  animation:pulseshine 1.2s ease-in-out infinite;
+}
+.sp-dot:nth-child(2){animation-delay:.2s}.sp-dot:nth-child(3){animation-delay:.4s}
+@keyframes pulseshine{0%,100%{transform:scale(.6);opacity:.4}50%{transform:scale(1);opacity:1}}
+
+/* ===== ENVELOPE ===== */
+#envScreen {
+  position: fixed; inset: 0; z-index: 9998;
+  background: radial-gradient(ellipse at 35% 40%, #1c1530 0%, #10101a 60%, #0a0a0f 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
+  opacity: 0; visibility: hidden; transition: opacity .8s ease;
+  overflow: hidden;
+}
+#envScreen.show { opacity: 1; visibility: visible; }
+#envScreen.hide{opacity:0;visibility:hidden;pointer-events:none}
+
+/* Shining particles background for envelope */
+.env-shimmer-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 30%,rgba(160,144,224,.06) 0%,transparent 70%),
+    radial-gradient(ellipse 50% 60% at 80% 70%,rgba(248,232,160,.05) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 40% at 60% 20%,rgba(255,213,232,.04) 0%,transparent 60%);
+}
+
+.env-box {
+  position: relative; z-index: 1;
+  width: min(430px, 90vw);
+  cursor: pointer;
+  transition: transform .5s cubic-bezier(.34, 1.56, .64, 1);
+  filter: drop-shadow(0 0 40px rgba(192, 176, 248, 0.15));
+}
+
+/* The Dark Prism Flap */
+.env-flap {
+  position: absolute; top: 0; left: 0; right: 0; height: 50%;
+  background: linear-gradient(160deg, #241e3a, #1a172e);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  z-index: 3;
+  border-bottom: 1px solid rgba(192, 176, 248, 0.2);
+}
+.env-box:hover{transform:translateY(-10px) scale(1.02);filter:drop-shadow(0 0 60px rgba(192,176,248,.25))}
+
+.envelope {
+  background: linear-gradient(160deg, #1c1830, #141220, #1e1a35, #16141f);
+  border: 1px solid rgba(192, 176, 248, 0.2);
+  border-radius: 4px;
+  padding: 6.5rem 2.5rem 3rem; /* Adjusted for flap space */
+  text-align: center;
+  position: relative;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+  overflow: hidden;
+}
+
+/* Shimmer sweep on the card */
+.envelope::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,
+    transparent,var(--shimmer1),var(--gold2),var(--shimmer2),var(--shimmer3),var(--gold2),var(--shimmer1),transparent);
+  background-size:200% 100%;
+  animation:prism 4s ease-in-out infinite;
+}
+.envelope::after {
+  content: ''; position: absolute;
+  inset: 12px; border: 1px solid rgba(192, 176, 248, 0.1);
+  pointer-events: none; border-radius: 2px;
+}
+
+@keyframes sweepshine{
+  0%{left:-60%;top:-100%}
+  50%{left:120%;top:-100%}
+  100%{left:120%;top:-100%}
+}
+.env-seal {
+  position: absolute; top: 44%; left: 50%; transform: translate(-50%, -50%);
+  width: 62px; height: 62px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #2d2848, #18152e);
+  border: 1.5px solid rgba(192, 176, 248, 0.5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 
+    0 0 20px rgba(160, 144, 224, 0.4),
+    inset 0 0 10px rgba(0,0,0,0.5);
+  z-index: 10;
+  animation: sealpulse 3s ease-in-out infinite;
+}
+
+@keyframes sealpulse{
+  0%,100%{box-shadow:0 0 0 3px rgba(192,176,248,.06),0 0 20px rgba(160,144,224,.3),0 0 50px rgba(160,144,224,.1)}
+  50%{box-shadow:0 0 0 6px rgba(192,176,248,.1),0 0 40px rgba(160,144,224,.6),0 0 80px rgba(160,144,224,.25)}
+}
+.env-gem-row{
+  display:flex;align-items:center;justify-content:center;gap:.8rem;
+  margin-bottom:1.2rem;
+  color:var(--iris2);font-size:.65rem;letter-spacing:.35em;
+}
+.env-inner { position: relative; z-index: 2; }
+
+.env-names {
+  font-family: 'Italianno', cursive;
+  font-size: 3.2rem; line-height: 1.2;
+  margin-top: 1rem;
+}
+
+.env-weds {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 0.95rem;
+  color: #b0a8d1; display: block; margin: 0.3rem 0;
+  letter-spacing: 0.1em;
+}
+
+.env-date {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem; letter-spacing: 0.25em;
+  color: var(--gold); /* Or your gold variable */
+  text-transform: uppercase;
+  margin-top: 1.5rem; padding-top: 1.2rem;
+  border-top: 1px solid rgba(192, 176, 248, 0.15);
+}
+@keyframes sealpulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 20px rgba(160, 144, 224, 0.4); }
+  50% { transform: translate(-50%, -50%) scale(1.05); box-shadow: 0 0 40px rgba(160, 144, 224, 0.6); }
+}
+.env-btn{
+  background:transparent;
+  border:1px solid rgba(192,176,248,.3);
+  font-family:'Cinzel',serif;
+  font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;
+  padding:.95rem 2.6rem;cursor:pointer;
+  transition:all .35s ease;position:relative;overflow:hidden;
+}
+.env-btn-inner{
+  position:relative;z-index:1;
+  background:linear-gradient(90deg,var(--shimmer1),var(--gold2),var(--shimmer2),var(--shimmer3),var(--gold3),var(--shimmer1));
+  background-size:200% 100%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:prism 3s ease-in-out infinite;
+}
+.env-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(192,176,248,.08),transparent);
+  transform:translateX(-100%);transition:transform .5s ease;
+}
+.env-btn:hover::before{transform:translateX(100%)}
+.env-btn:hover{
+  border-color:rgba(192,176,248,.6);
+  box-shadow:0 0 30px rgba(160,144,224,.2),inset 0 0 30px rgba(160,144,224,.04);
+}
+
+/* ===== NAV ===== */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:1.2rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(12,12,16,.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(192,176,248,.07);
+  transform:translateY(-100%);
+  transition:transform .8s cubic-bezier(.16,1,.3,1);
+  box-shadow:0 1px 30px rgba(0,0,0,.4);
+}
+@media(max-width:768px){#nav{display:none}}
+#nav.show{transform:translateY(0)}
+.nav-brand{font-family:'Great Vibes',cursive;font-size:1.5rem}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{
+  font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--mist);text-decoration:none;transition:color .3s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;height:.5px;
+  background:linear-gradient(90deg,var(--iris2),var(--gold2));
+  transform:scaleX(0);transform-origin:left;transition:transform .3s;
+}
+.nav-links a:hover{color:var(--pearl)}.nav-links a:hover::after{transform:scaleX(1)}
+
+/* ===== MUSIC BTN ===== */
+#mBtn{
+  position:fixed;bottom:2rem;right:2rem;z-index:600;
+  width:50px;height:50px;border-radius:50%;
+  background:rgba(18,16,28,.9);
+  border:1px solid rgba(192,176,248,.3);
+  font-size:1.1rem;
+  cursor:pointer;display:none;align-items:center;justify-content:center;
+  transition:all .3s;
+  box-shadow:0 0 20px rgba(160,144,224,.1);
+}
+#mBtn.show{display:flex}
+#mBtn:hover{border-color:var(--iris2);box-shadow:0 0 30px rgba(160,144,224,.3)}
+
+/* ===== MAIN ===== */
+#main{opacity:0;transition:opacity 1.2s ease;position:relative;z-index:2}
+#main.show{opacity:1}
+
+/* ===== HERO ===== */
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:7rem 2rem 5rem;
+  position:relative;overflow:hidden;
+}
+.hero-aura{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:900px;height:900px;border-radius:50%;
+  background:
+    radial-gradient(ellipse 50% 50% at 50% 50%,rgba(160,144,224,.07) 0%,transparent 60%);
+  animation:aurabreath 7s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes aurabreath{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.6}50%{transform:translate(-50%,-50%) scale(1.2);opacity:1}}
+
+/* Shining ring layers */
+.shine-ring{
+  position:absolute;border-radius:50%;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.shine-ring:nth-child(1){
+  width:380px;height:380px;
+  border:1px solid rgba(192,176,248,.08);
+  animation:ringshine1 5s ease-in-out infinite;
+}
+.shine-ring:nth-child(2){
+  width:620px;height:620px;
+  border:1px solid rgba(240,208,128,.05);
+  animation:ringshine1 5s ease-in-out 1.5s infinite;
+}
+.shine-ring:nth-child(3){
+  width:860px;height:860px;
+  border:1px solid rgba(192,176,248,.03);
+  animation:ringshine1 5s ease-in-out 3s infinite;
+}
+@keyframes ringshine1{
+  0%,100%{opacity:.2;transform:translate(-50%,-50%) scale(1)}
+  50%{opacity:.8;transform:translate(-50%,-50%) scale(1.02)}
+}
+
+/* Diamond border frame */
+.hero-frame{position:absolute;inset:24px;pointer-events:none}
+.hf-corner{position:absolute;width:44px;height:44px}
+.hf-corner.tl{top:0;left:0;border-top:1px solid rgba(192,176,248,.4);border-left:1px solid rgba(192,176,248,.4)}
+.hf-corner.tr{top:0;right:0;border-top:1px solid rgba(192,176,248,.4);border-right:1px solid rgba(192,176,248,.4)}
+.hf-corner.bl{bottom:0;left:0;border-bottom:1px solid rgba(192,176,248,.4);border-left:1px solid rgba(192,176,248,.4)}
+.hf-corner.br{bottom:0;right:0;border-bottom:1px solid rgba(192,176,248,.4);border-right:1px solid rgba(192,176,248,.4)}
+.hf-corner svg{width:8px;height:8px;fill:rgba(192,176,248,.5)}
+.hf-corner.tl svg{position:absolute;bottom:-1px;right:-1px}
+.hf-corner.tr svg{position:absolute;bottom:-1px;left:-1px}
+.hf-corner.bl svg{position:absolute;top:-1px;right:-1px}
+.hf-corner.br svg{position:absolute;top:-1px;left:-1px}
+
+.h-symbol{
+  font-family:'Cinzel Decorative',serif;
+  font-size:2.2rem;margin-bottom:1.5rem;
+  opacity:0;transform:translateY(14px);transition:all .9s ease .2s;
+}
+.h-tag{
+  font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.5em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:2rem;
+  opacity:0;transform:translateY(12px);transition:all .9s ease .45s;
+}
+.h-groom{
+  font-family:'Italianno',cursive;
+  font-size:clamp(3.8rem,12vw,8.5rem);
+  line-height:.92;
+  opacity:0;transform:translateY(28px);transition:all 1.2s cubic-bezier(.16,1,.3,1) .65s;
+}
+.h-weds{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;
+  color:var(--mist);margin:.8rem 0;letter-spacing:.18em;
+  opacity:0;transform:translateY(10px);transition:all .9s ease 1s;
+  display:flex;align-items:center;justify-content:center;gap:1.2rem;
+}
+.h-weds-gem{font-size:.6rem;color:var(--iris2)}
+.h-bride{
+  font-family:'Italianno',cursive;
+  font-size:clamp(3.8rem,12vw,8.5rem);
+  line-height:.92;
+  opacity:0;transform:translateY(28px);transition:all 1.2s cubic-bezier(.16,1,.3,1) 1.2s;
+}
+.h-shine-rule{
+  display:flex;align-items:center;gap:1.2rem;
+  margin:2rem auto;width:min(380px,85vw);
+  opacity:0;transition:opacity 1s ease 1.55s;
+}
+.h-shine-line{
+  flex:1;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(192,176,248,.35),var(--gold2),rgba(192,176,248,.35));
+  animation:prism 5s ease-in-out infinite;
+}
+.h-shine-line.r{background:linear-gradient(270deg,transparent,rgba(192,176,248,.35),var(--gold2),rgba(192,176,248,.35))}
+.h-shine-gem{font-size:.8rem;letter-spacing:.2em;color:var(--iris2)}
+.h-date{
+  font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.34em;
+  color:var(--gold);margin-bottom:3rem;
+  opacity:0;transform:translateY(10px);transition:all .9s ease 1.75s;
+}
+.h-cta{
+  display:inline-block;
+  border:1px solid rgba(192,176,248,.3);
+  font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.24em;
+  text-decoration:none;text-transform:uppercase;
+  padding:1.1rem 3rem;
+  background:transparent;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .9s ease 1.95s,transform .9s ease 1.95s,box-shadow .3s;
+  position:relative;overflow:hidden;
+}
+.h-cta-text{
+  position:relative;z-index:1;
+  background:linear-gradient(90deg,var(--shimmer1),var(--gold2),var(--shimmer2),var(--gold3),var(--shimmer1));
+  background-size:200% 100%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:prism 4s ease-in-out infinite;
+}
+.h-cta::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(192,176,248,.07),transparent);
+  transform:translateX(-100%);transition:transform .6s ease;
+}
+.h-cta:hover::before{transform:translateX(100%)}
+.h-cta:hover{box-shadow:0 0 40px rgba(160,144,224,.2),0 0 80px rgba(160,144,224,.08)}
+
+.h-scroll{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  opacity:0;animation:shinein 1s ease 2.5s forwards;
+}
+.h-scroll-label{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.3em;color:rgba(192,176,248,.45);text-transform:uppercase}
+.h-scroll-arrow{font-size:1.1rem;color:var(--iris2);animation:bouncedown 1.8s ease-in-out infinite}
+@keyframes bouncedown{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(8px);opacity:1}}
+
+.hero-live .h-symbol,.hero-live .h-tag,.hero-live .h-groom,.hero-live .h-weds,.hero-live .h-bride,.hero-live .h-date,.hero-live .h-cta{opacity:1!important;transform:none!important}
+.hero-live .h-shine-rule{opacity:1!important}
+
+/* ===== REVEAL ===== */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease}
+.rv.in{opacity:1;transform:none}
+.rv-l{opacity:0;transform:translateX(-30px);transition:opacity .9s ease,transform .9s ease}
+.rv-l.in{opacity:1;transform:none}
+.rv-r{opacity:0;transform:translateX(30px);transition:opacity .9s ease,transform .9s ease}
+.rv-r.in{opacity:1;transform:none}
+.rv-s{opacity:0;transform:scale(.94);transition:opacity .9s ease,transform .9s ease}
+.rv-s.in{opacity:1;transform:scale(1)}
+.d1{transition-delay:.1s}.d2{transition-delay:.22s}.d3{transition-delay:.38s}.d4{transition-delay:.55s}
+
+/* ===== SECTION COMMON ===== */
+.s-tag{font-family:'Cinzel',serif;font-size:.59rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:.7rem}
+.s-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.5rem,4vw,2.3rem);font-weight:400;text-align:center;line-height:1.3;margin-bottom:.8rem}
+.s-rule{
+  display:flex;align-items:center;justify-content:center;gap:1rem;
+  margin:0 auto 3rem;max-width:300px;
+}
+.s-rule-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(192,176,248,.3))}
+.s-rule-line.r{background:linear-gradient(270deg,transparent,rgba(192,176,248,.3))}
+.s-rule-diamond{
+  width:8px;height:8px;
+  background:var(--iris2);
+  transform:rotate(45deg);
+  opacity:.7;
+  flex-shrink:0;
+}
+
+/* ===== SHINE CARD BASE ===== */
+.shine-card{
+  background:linear-gradient(160deg,#1c1830,#14121e,#1e1c32,#12101c);
+  border:1px solid rgba(192,176,248,.12);
+  position:relative;overflow:hidden;
+  transition:all .4s ease;
+}
+.shine-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1.5px;
+  background:linear-gradient(90deg,transparent,var(--shimmer1),var(--gold2),var(--shimmer3),var(--shimmer2),var(--gold2),var(--shimmer1),transparent);
+  background-size:200% 100%;
+  animation:prism 5s ease-in-out infinite;
+  opacity:.8;
+}
+.shine-card::after{
+  content:'';position:absolute;
+  top:-100%;left:-50%;
+  width:50%;height:300%;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.02) 50%,transparent 60%);
+  animation:sweepshine 7s ease-in-out infinite;
+}
+.shine-card:hover{
+  border-color:rgba(192,176,248,.3);
+  transform:translateY(-6px);
+  box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 40px rgba(160,144,224,.07);
+}
+
+/* ===== COUPLE ===== */
+#couple{
+  padding:7rem 2rem;
+  background:linear-gradient(180deg,var(--onyx) 0%,#0f0f18 50%,var(--onyx) 100%);
+  position:relative;overflow:hidden;
+}
+#couple::before{
+  content:'';position:absolute;
+  width:800px;height:800px;border-radius:50%;
+  background:radial-gradient(circle,rgba(160,144,224,.04) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.couple-intro{
+  text-align:center;font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:1.08rem;color:var(--mist);margin-bottom:2.5rem;letter-spacing:.04em;
+}
+.couple-grid{
+  display:grid;grid-template-columns:1fr auto 1fr;
+  gap:2rem;align-items:center;max-width:900px;margin:0 auto;
+}
+@media(max-width:640px){.couple-grid{grid-template-columns:1fr}.c-sep{display:none!important}}
+.c-card{padding:3rem 2.5rem;text-align:center}
+.c-icon{font-size:2rem;margin-bottom:1.2rem;display:block}
+.c-role{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.36em;color:var(--gold);text-transform:uppercase;margin-bottom:.65rem}
+.c-name{
+  font-family:'Italianno',cursive;font-size:3.2rem;margin-bottom:.9rem;line-height:1;
+}
+.c-of{font-family:'Cinzel',serif;font-size:.53rem;letter-spacing:.22em;color:var(--mist);text-transform:uppercase;margin-bottom:.4rem;opacity:.6}
+.c-parents{font-family:'Cormorant Garamond',serif;font-size:1.06rem;line-height:1.9;color:var(--silver)}
+.c-place{
+  display:inline-block;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;
+  color:var(--iris2);margin-top:.9rem;
+}
+.c-sep{display:flex;flex-direction:column;align-items:center;gap:.8rem;opacity:.5}
+.c-sep-line{width:1px;height:70px;background:linear-gradient(180deg,transparent,rgba(192,176,248,.4),transparent)}
+.c-sep-sym{
+  font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-style:italic;
+  background:linear-gradient(180deg,var(--iris2),var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:prism 5s ease-in-out infinite;
+}
+
+/* ===== CEREMONY ===== */
+#ceremony{
+  padding:7rem 2rem;text-align:center;
+  background:linear-gradient(180deg,var(--onyx) 0%,#080810 40%,var(--onyx) 100%);
+  position:relative;overflow:hidden;
+}
+.cer-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(192,176,248,.04) 0%,transparent 70%);
+  animation:aurabreath 8s ease-in-out infinite;
+}
+.cer-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.4rem;max-width:750px;margin:0 auto 3rem;
+}
+.cer-card{padding:2.2rem 1.8rem}
+.cer-lbl{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.32em;color:var(--gold);text-transform:uppercase;margin-bottom:.9rem}
+.cer-val{font-family:'Cinzel Decorative',serif;font-size:1.4rem;font-weight:400;line-height:1.4}
+.cer-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:var(--mist);margin-top:.4rem;opacity:.8}
+.panchang{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.86rem;color:var(--faint);letter-spacing:.06em;margin-bottom:3rem}
+.cer-center-sym{font-family:'Cinzel Decorative',serif;font-size:2.2rem;margin-bottom:2.5rem;display:block}
+.mangala{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--faint);margin-top:1.5rem}
+
+/* ===== COUNTDOWN ===== */
+#countdown{
+  padding:7rem 2rem;text-align:center;
+  background:linear-gradient(160deg,#0d0c18 0%,var(--onyx) 50%,#0c0c16 100%);
+  position:relative;overflow:hidden;
+}
+.cd-grid{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap;margin-top:3rem}
+.cd-box{min-width:110px;padding:2.2rem 1.5rem}
+.cd-num{
+  font-family:'Cinzel Decorative',serif;
+  font-size:3rem;font-weight:400;
+  display:block;line-height:1;
+}
+.cd-lbl{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.3em;color:var(--mist);text-transform:uppercase;margin-top:.6rem;display:block;opacity:.6}
+.cd-sep{
+  font-family:'Cinzel Decorative',serif;font-size:2.5rem;
+  align-self:flex-end;padding-bottom:2rem;
+  background:linear-gradient(180deg,var(--iris2),var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  opacity:.5;
+}
+
+/* ===== GALLERY ===== */
+#gallery{
+  padding:7rem 2rem;
+  background:linear-gradient(180deg,var(--onyx) 0%,#0a0a14 50%,var(--onyx) 100%);
+  position:relative;overflow:hidden;
+}
+.gal-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:.8rem;max-width:900px;margin:0 auto;
+}
+@media(max-width:640px){.gal-grid{grid-template-columns:1fr 1fr}}
+.g-item{
+  position:relative;overflow:hidden;
+  background:#0d0d18;
+  border:1px solid rgba(192,176,248,.1);
+  cursor:pointer;transition:all .4s ease;
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+}
+.g-item:first-child{grid-column:1/3;aspect-ratio:2/1}
+.g-item::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 50%,rgba(12,12,20,.9) 100%);
+  z-index:1;opacity:0;transition:opacity .4s;
+}
+/* Shimmer overlay on hover */
+.g-item::after{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(135deg,
+    transparent 30%,rgba(192,176,248,.08) 50%,transparent 70%);
+  opacity:0;transition:opacity .4s;
+  pointer-events:none;
+}
+.g-item:hover::before,.g-item:hover::after{opacity:1}
+.g-item:hover{border-color:rgba(192,176,248,.3);transform:scale(1.02);box-shadow:0 0 30px rgba(160,144,224,.1)}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.g-item:hover img{transform:scale(1.07)}
+.g-txt{
+  position:absolute;bottom:1.2rem;left:1.2rem;z-index:2;
+  font-family:'Great Vibes',cursive;font-size:1.3rem;
+  background:linear-gradient(90deg,var(--shimmer1),var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  opacity:0;transform:translateY(8px);transition:all .4s ease;
+}
+.g-item:hover .g-txt{opacity:1;transform:none}
+.gal-note{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--faint);margin-bottom:2.5rem}
+
+/* ===== VENUE ===== */
+#venue{
+  padding:7rem 2rem;
+  background:linear-gradient(180deg,var(--onyx) 0%,#080810 50%,var(--onyx) 100%);
+}
+.venue-wrap{max-width:800px;margin:0 auto}
+.venue-card{padding:3rem}
+.venue-inner{display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:start}
+@media(max-width:540px){.venue-inner{grid-template-columns:1fr}}
+.venue-ico-col{display:flex;flex-direction:column;align-items:center;gap:1rem}
+.venue-ico{font-size:3rem}
+.venue-ico-line{
+  width:1px;height:55px;
+  background:linear-gradient(180deg,var(--iris2),transparent);
+  opacity:.5;
+}
+.venue-name{font-family:'Cinzel Decorative',serif;font-size:1.6rem;font-weight:400;margin-bottom:.3rem}
+.venue-city{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--iris2);margin-bottom:1.5rem}
+.venue-lbl{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:var(--mist);margin-bottom:.4rem;opacity:.6}
+.venue-addr{font-family:'Cormorant Garamond',serif;font-size:1.04rem;line-height:2;color:var(--silver);margin-bottom:1.8rem}
+.maps-btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  border:1px solid rgba(192,176,248,.25);
+  font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.2em;
+  text-decoration:none;padding:.8rem 1.8rem;text-transform:uppercase;
+  transition:all .3s;background:transparent;position:relative;overflow:hidden;
+}
+.maps-btn-text{
+  position:relative;z-index:1;
+  background:linear-gradient(90deg,var(--shimmer2),var(--gold2),var(--shimmer1));
+  background-size:200% 100%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:prism 4s ease-in-out infinite;
+}
+.maps-btn::before{content:'';position:absolute;inset:0;background:rgba(192,176,248,.05);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.maps-btn:hover::before{transform:scaleX(1)}
+.maps-btn:hover{border-color:var(--iris2);box-shadow:0 0 20px rgba(160,144,224,.15)}
+
+/* ===== RSVP ===== */
+#rsvp{
+  padding:7rem 2rem;text-align:center;
+  background:linear-gradient(180deg,var(--onyx) 0%,#0c0b18 60%,var(--jet) 100%);
+  position:relative;overflow:hidden;
+}
+.rsvp-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 50% 70% at 50% 100%,rgba(160,144,224,.07) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 40% at 50% 50%,rgba(240,208,128,.03) 0%,transparent 60%);
+}
+.rsvp-msg{
+  max-width:640px;margin:0 auto 2.5rem;
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.13rem;line-height:2.1;color:var(--mist);
+}
+.rsvp-join{
+  font-family:'Great Vibes',cursive;font-size:2.4rem;margin-bottom:.3rem;
+}
+.rsvp-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--faint);margin-bottom:3rem}
+.rsvp-btns{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap}
+.btn-wa{
+  display:inline-flex;align-items:center;gap:.7rem;
+  background:rgba(37,211,102,.05);border:1px solid rgba(37,211,102,.25);
+  color:#5be09a;
+  font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.18em;
+  text-decoration:none;padding:1rem 2rem;text-transform:uppercase;
+  transition:all .3s;
+}
+.btn-wa:hover{background:rgba(37,211,102,.1);border-color:rgba(37,211,102,.5);transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,.1)}
+.btn-call{
+  display:inline-flex;align-items:center;gap:.7rem;
+  border:1px solid rgba(192,176,248,.25);
+  font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.18em;
+  text-decoration:none;padding:1rem 2rem;text-transform:uppercase;
+  transition:all .3s;background:transparent;position:relative;overflow:hidden;
+}
+.btn-call-text{
+  position:relative;z-index:1;
+  background:linear-gradient(90deg,var(--shimmer1),var(--gold2),var(--shimmer2));
+  background-size:200% 100%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:prism 4s ease-in-out infinite;
+}
+.btn-call::before{content:'';position:absolute;inset:0;background:rgba(192,176,248,.06);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.btn-call:hover::before{transform:scaleX(1)}
+.btn-call:hover{border-color:var(--iris2);box-shadow:0 8px 24px rgba(160,144,224,.12);transform:translateY(-2px)}
+
+/* ===== FOOTER ===== */
+footer{
+  background:linear-gradient(180deg,var(--jet),#0a0a12);
+  padding:3.5rem 2rem;text-align:center;
+  border-top:1px solid rgba(192,176,248,.06);
+  position:relative;
+}
+footer::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1.5px;
+  background:linear-gradient(90deg,transparent,var(--shimmer1),var(--gold2),var(--shimmer2),var(--shimmer3),var(--gold2),var(--shimmer1),transparent);
+  background-size:200% 100%;
+  animation:prism 6s ease-in-out infinite;
+  opacity:.6;
+}
+.foot-names{font-family:'Italianno',cursive;font-size:2.4rem;margin-bottom:.5rem}
+.foot-date{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.28em;color:var(--gold);margin-bottom:1.2rem;text-transform:uppercase;opacity:.7}
+.foot-stars{letter-spacing:.6em;margin-bottom:.8rem;display:block;opacity:.3;font-size:.75rem}
+.foot-love{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:var(--faint)}
+
+/* ===== LIGHTBOX ===== */
+#lb{position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,.97);display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+#lb.open{display:flex}
+#lb img{max-width:90vw;max-height:90vh;object-fit:contain;border:1px solid rgba(192,176,248,.15)}
+.lb-x{position:absolute;top:1.5rem;right:1.5rem;color:var(--iris2);font-size:1.3rem;cursor:pointer;width:42px;height:42px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(192,176,248,.3);transition:all .3s;font-family:'Cinzel',serif}
+.lb-x:hover{background:rgba(192,176,248,.1);box-shadow:0 0 20px rgba(160,144,224,.2)}
+</style>
+</head>
+<body>
+
+<canvas id="shimmerCanvas"></canvas>
+
+<button id="mBtn" title="Toggle music">♪</button>
+<audio id="bgm" loop>
+  <source src="Music/Cinematic Trendy Save The Date Video Premium Wedding Invitation Video Tamil BGM InspireStudio - Inspire Studio InviCreator (128k).mp3" type="audio/mpeg"/>
+</audio>
+
+<div id="lb">
+  <div class="lb-x" onclick="closeLb()">✕</div>
+  <img id="lbImg" src="" alt=""/>
+</div>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="sp-star">
+    <svg viewBox="0 0 80 80" fill="none">
+      <defs>
+        <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#c0b0f8"/>
+          <stop offset="50%" stop-color="#f0d080"/>
+          <stop offset="100%" stop-color="#c0b0f8"/>
+        </linearGradient>
+      </defs>
+      <path d="M40 4 L44 36 L76 40 L44 44 L40 76 L36 44 L4 40 L36 36 Z" stroke="url(#sg)" stroke-width=".8" fill="none" opacity=".8"/>
+      <path d="M40 12 L43 37 L68 40 L43 43 L40 68 L37 43 L12 40 L37 37 Z" stroke="url(#sg)" stroke-width=".5" fill="none" opacity=".4"/>
+    </svg>
+    <div class="sp-star-inner prism-text">✦</div>
+  </div>
+  <div class="sp-name prism-text">Anusha & Chandrakanth</div>
+  <div class="sp-tag">Wedding Invitation</div>
+  <div class="sp-bar"></div>
+  <div class="sp-dots">
+    <div class="sp-dot"></div><div class="sp-dot"></div><div class="sp-dot"></div>
+  </div>
+</div>
+
+<div id="envScreen" class="show">
+  <div class="env-shimmer-bg"></div>
+  <div class="env-box" onclick="openInv()">
+    <div class="env-flap"></div>
+    
+    <div class="envelope">
+      <div class="env-seal">
+        <span class="prism-text-fast">ॐ</span>
+      </div>
+      <div class="env-inner">
+        <div class="env-gem-row">— ✦ ✦ ✦ —</div>
+        <div class="env-names prism-text">
+          Chandrakanth <span class="env-weds">weds</span> Anusha
+        </div>
+        <div class="env-date">Thursday &nbsp;·&nbsp; 23 April 2026</div>
+      </div>
+    </div>
+  </div>
+  <button class="env-btn" onclick="openInv()">
+    <span class="env-btn-inner">Reveal Your Invitation ✦</span>
+  </button>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-brand prism-text">C & A</div>
+  <ul class="nav-links">
+    <li><a href="#couple">The Couple</a></li>
+    <li><a href="#ceremony">Ceremony</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#venue">Venue</a></li>
+    <li><a href="#rsvp">RSVP</a></li>
+  </ul>
+</nav>
+
+<!-- MAIN -->
+<div id="main">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-aura"></div>
+    <div class="shine-ring"></div>
+    <div class="shine-ring"></div>
+    <div class="shine-ring"></div>
+    <div class="hero-frame">
+      <div class="hf-corner tl">
+        <svg viewBox="0 0 8 8"><rect x="2" y="2" width="4" height="4" transform="rotate(45 4 4)"/></svg>
+      </div>
+      <div class="hf-corner tr">
+        <svg viewBox="0 0 8 8"><rect x="2" y="2" width="4" height="4" transform="rotate(45 4 4)"/></svg>
+      </div>
+      <div class="hf-corner bl">
+        <svg viewBox="0 0 8 8"><rect x="2" y="2" width="4" height="4" transform="rotate(45 4 4)"/></svg>
+      </div>
+      <div class="hf-corner br">
+        <svg viewBox="0 0 8 8"><rect x="2" y="2" width="4" height="4" transform="rotate(45 4 4)"/></svg>
+      </div>
+    </div>
+
+    <div class="h-symbol prism-text">ॐ</div>
+    <div class="h-tag">Sacred Union · Wedding Invitation</div>
+    <div class="h-groom prism-text">Anusha</div>
+    <div class="h-weds">
+      <span class="h-weds-gem">✦</span>
+      weds
+      <span class="h-weds-gem">✦</span>
+    </div>
+    <div class="h-bride prism-text">Chandrakanth</div>
+    <div class="h-shine-rule">
+      <div class="h-shine-line"></div>
+      <div class="h-shine-gem">✦ ✦ ✦</div>
+      <div class="h-shine-line r"></div>
+    </div>
+    <div class="h-date prism-text-fast">Thursday &nbsp;·&nbsp; 23 April 2026</div>
+    <a href="#couple" class="h-cta">
+      <span class="h-cta-text">Enter the Invitation &nbsp;→</span>
+    </a>
+
+    <div class="h-scroll">
+      <span class="h-scroll-label">Scroll</span>
+      <div class="h-scroll-arrow">⌄</div>
+    </div>
+  </section>
+
+  <!-- COUPLE -->
+  <section id="couple">
+    <p class="couple-intro rv">Joyfully announcing the sacred union of two souls</p>
+    <div class="s-tag rv">The Blessed Pair</div>
+    <h2 class="s-title rv prism-text">Two Families · One Heart</h2>
+    <div class="s-rule rv">
+      <div class="s-rule-line"></div>
+      <div class="s-rule-diamond"></div>
+      <div class="s-rule-line r"></div>
+    </div>
+
+    <div class="couple-grid">
+      <div class="c-card shine-card rv rv-r d1">
+        <span class="c-icon">🌸</span>
+        <div class="c-role">The Bride</div>
+        <div class="c-name prism-text">Anusha</div>
+        <div class="c-of">Daughter of</div>
+        <div class="c-parents">Sheena Kulal &amp; Jyothi</div>
+        <div class="c-place">Haikady</div>
+      </div>
+      <div class="c-sep rv">
+        <div class="c-sep-line"></div>
+        <div class="c-sep-sym">∞</div>
+        <div class="c-sep-line"></div>
+      </div>
+      <div class="c-card shine-card rv rv-l">
+        <span class="c-icon">🪔</span>
+        <div class="c-role">The Groom</div>
+        <div class="c-name prism-text">Chandrakanth</div>
+        <div class="c-of">Son of</div>
+        <div class="c-parents">Manju Kulal &amp; Rudru</div>
+        <div class="c-place">Kakkunje</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CEREMONY -->
+  <section id="ceremony">
+    <div class="cer-glow"></div>
+    <div class="s-tag rv">Auspicious Muhurta</div>
+    <h2 class="s-title rv prism-text">The Wedding Ceremony</h2>
+    <div class="s-rule rv">
+      <div class="s-rule-line"></div>
+      <div class="s-rule-diamond"></div>
+      <div class="s-rule-line r"></div>
+    </div>
+    <p class="panchang rv">Swasthi shree Parabhavanama savathsara &nbsp;·&nbsp; Meshamasa Dhina 9 &nbsp;·&nbsp; Vaishaka shukla 7</p>
+    <span class="cer-center-sym rv prism-text">ॐ</span>
+    <div class="cer-grid">
+      <div class="cer-card shine-card rv d1">
+        <div class="cer-lbl">Date &amp; Day</div>
+        <div class="cer-val prism-text">Thursday<br/>23 April 2026</div>
+        <div class="cer-sub">Auspicious Day</div>
+      </div>
+      <div class="cer-card shine-card rv d2">
+        <div class="cer-lbl">Venue</div>
+        <div class="cer-val prism-text">Saptapadi<br/>Convention Hall</div>
+        <div class="cer-sub">Heggunje, Mandarthi · Udupi</div>
+      </div>
+      <div class="cer-card shine-card rv d3">
+        <div class="cer-lbl">Auspicious Time</div>
+        <div class="cer-val prism-text">12:05 AM</div>
+        <div class="cer-sub">Karkataka lagna</div>
+      </div>
+    </div>
+    <p class="mangala rv">ಶ್ರೀ ಮಂಗಳಂ · Mangalam</p>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section id="countdown">
+    <div class="s-tag rv">Every Moment Counts</div>
+    <h2 class="s-title rv prism-text">Until We Celebrate Together</h2>
+    <div class="s-rule rv">
+      <div class="s-rule-line"></div>
+      <div class="s-rule-diamond"></div>
+      <div class="s-rule-line r"></div>
+    </div>
+    <div class="cd-grid">
+      <div class="cd-box shine-card rv d1"><span class="cd-num prism-text" id="cdD">--</span><span class="cd-lbl">Days</span></div>
+      <div class="cd-sep rv">:</div>
+      <div class="cd-box shine-card rv d2"><span class="cd-num prism-text" id="cdH">--</span><span class="cd-lbl">Hours</span></div>
+      <div class="cd-sep rv d1">:</div>
+      <div class="cd-box shine-card rv d3"><span class="cd-num prism-text" id="cdM">--</span><span class="cd-lbl">Minutes</span></div>
+      <div class="cd-sep rv d2">:</div>
+      <div class="cd-box shine-card rv d4"><span class="cd-num prism-text" id="cdS">--</span><span class="cd-lbl">Seconds</span></div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="s-tag rv">Cherished Moments</div>
+    <h2 class="s-title rv prism-text">Our Story in Frames</h2>
+    <div class="s-rule rv">
+      <div class="s-rule-line"></div>
+      <div class="s-rule-diamond"></div>
+      <div class="s-rule-line r"></div>
+    </div>
+    <p class="gal-note rv">Memories that shine forever</p>
+    <div class="gal-grid">
+      <div class="g-item rv-s d1" onclick="openLb(this)">
+        <img src="Photos/658219725_17886340164465690_3432795314790024413_n.jpg" alt="Chandrakanth & Anusha"/>
+        <div class="g-txt">Chandrakanth &amp; Anusha</div>
+      </div>
+      <div class="g-item rv-s d2" onclick="openLb(this)">
+        <img src="Photos/4.jpg" alt="Together"/>
+        <div class="g-txt">Together</div>
+      </div>
+      <div class="g-item rv-s d3" onclick="openLb(this)">
+        <img src="Photos/656585736_17886340101465690_3821546554712598333_n.jpg" alt="Love"/>
+        <div class="g-txt">Love</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VENUE -->
+  <section id="venue">
+    <div class="venue-wrap">
+      <div class="s-tag rv">The Sacred Setting</div>
+      <h2 class="s-title rv prism-text">Wedding Venue</h2>
+      <div class="s-rule rv">
+        <div class="s-rule-line"></div>
+        <div class="s-rule-diamond"></div>
+        <div class="s-rule-line r"></div>
+      </div>
+      <div class="venue-card shine-card rv-s">
+        <div class="venue-inner">
+          <div class="venue-ico-col">
+            <div class="venue-ico">🛕</div>
+            <div class="venue-ico-line"></div>
+          </div>
+          <div>
+            <div class="venue-name prism-text">Saptapadi Convention Hall</div>
+            <div class="venue-city">Heggunje, Mandarthi · Udupi, Karnataka</div>
+            <div class="venue-lbl">Full Address</div>
+            <div class="venue-addr">
+              Near Shri Guru Service Station<br/>
+              Heggunje, Mandarthi<br/>
+              Mair Kome, Udupi — 576223<br/>
+              Karnataka
+            </div>
+            <a class="maps-btn" href="https://www.google.com/maps/place/Saptapadi+Convention+Hall/@13.4985645,74.8309708,423m/data=!3m1!1e3!4m10!1m2!2m1!1ssapthapadhi+convetional+hall+mailkomme!3m6!1s0x3bbc99deea23ae27:0x29728ad14ef73bf2!8m2!3d13.4986594!4d74.8332658!15sCiZzYXB0aGFwYWRoaSBjb252ZXRpb25hbCBoYWxsIG1haWxrb21tZVooIiZzYXB0aGFwYWRoaSBjb252ZXRpb25hbCBoYWxsIG1haWxrb21tZZIBEWNvbnZlbnRpb25fY2VudGVymgFEQ2k5RFFVbFJRVU52WkVOb2RIbGpSamx2VDJzMWIxVnVTa1pOUkd3MlZtdGFjR0ZyZEhsaVJFWkZaRmQwY1ZveFJSQULgAQD6AQQIABAo!16s%2Fg%2F11vqzpg7c0?entry=ttu&g_ep=EgoyMDI2MDQwOC4wIKXMDSoASAFQAw%3D%3D" target="_blank">
+              <span class="maps-btn-text">📍 Open in Google Maps</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section id="rsvp">
+    <div class="rsvp-glow"></div>
+    <div class="s-tag rv">A Heartfelt Invitation</div>
+    <h2 class="s-title rv prism-text">With Joy &amp; Gratitude</h2>
+    <div class="s-rule rv">
+      <div class="s-rule-line"></div>
+      <div class="s-rule-diamond"></div>
+      <div class="s-rule-line r"></div>
+    </div>
+    <p class="rsvp-msg rv">
+      With the blessings of our Kula Devata and the grace of the Divine, we joyfully invite you to witness and bless the sacred union of Chandrakanth and Anusha. Your presence and warm blessings would make this auspicious occasion truly complete.
+    </p>
+    <div class="rsvp-join rv prism-text">Your Presence is Our Joy</div>
+    <div class="rsvp-sub rv">Join the Celebration · 23 April 2026</div>
+    <div class="rsvp-btns rv">
+      <a class="btn-call" href="tel:+918431294514">
+        <span class="btn-call-text">📞 +91 84312 94514</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-names prism-text">Anusha &amp; Chandrakanth</div>
+    <div class="foot-date">23 April 2026 &nbsp;·&nbsp; Saptapadi Convention Hall, Udupi</div>
+    <span class="foot-stars">✦ &nbsp; ✦ &nbsp; ✦</span>
+    <div class="foot-love">With love &amp; infinite blessings</div>
+  </footer>
+
+</div><!-- /main -->
+
+<script>
+/* ── SHIMMER PARTICLE CANVAS ── */
+(function(){
+  const c=document.getElementById('shimmerCanvas');
+  const ctx=c.getContext('2d');
+  let W,H,particles=[];
+
+  const COLORS=[
+    [192,176,248], // iris
+    [240,208,128], // gold
+    [232,213,255], // shimmer1
+    [213,232,255], // shimmer2
+    [255,213,232], // shimmer3
+    [255,232,213], // shimmer4
+    [248,232,192], // champagne
+  ];
+
+  function init(){
+    W=c.width=innerWidth;H=c.height=innerHeight;
+    particles=[];
+    const N=Math.min(200, Math.floor(W*H/8000));
+    for(let i=0;i<N;i++){
+      particles.push(makeParticle(Math.random()*H));
+    }
+  }
+
+  function makeParticle(y){
+    const col=COLORS[Math.floor(Math.random()*COLORS.length)];
+    return{
+      x:Math.random()*W,
+      y:y,
+      r:Math.random()*1.5+.2,
+      alpha:0,
+      maxAlpha:Math.random()*.5+.1,
+      phase:Math.random()*Math.PI*2,
+      speed:Math.random()*.3+.05,
+      twinkle:Math.random()*.03+.005,
+      drift:Math.random()*.2-.1,
+      col,
+      sparkle:Math.random()>.85,
+    };
+  }
+
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    frame++;
+    particles.forEach(p=>{
+      p.phase+=p.twinkle;
+      p.alpha=Math.abs(Math.sin(p.phase))*p.maxAlpha;
+      p.y-=p.speed;
+      p.x+=p.drift;
+      if(p.y<-10){Object.assign(p,makeParticle(H+10));p.x=Math.random()*W}
+
+      const [r,g,b]=p.col;
+
+      if(p.sparkle && p.alpha>p.maxAlpha*.7){
+        // Draw a tiny 4-point star
+        ctx.save();
+        ctx.translate(p.x,p.y);
+        ctx.globalAlpha=p.alpha;
+        ctx.fillStyle=`rgb(${r},${g},${b})`;
+        const s=p.r*2.5;
+        ctx.beginPath();
+        ctx.moveTo(0,-s);ctx.lineTo(.3,-0.3);
+        ctx.lineTo(s,0);ctx.lineTo(.3,.3);
+        ctx.lineTo(0,s);ctx.lineTo(-.3,.3);
+        ctx.lineTo(-s,0);ctx.lineTo(-.3,-.3);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      } else {
+        ctx.globalAlpha=p.alpha;
+        ctx.fillStyle=`rgb(${r},${g},${b})`;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
+        ctx.globalAlpha=1;
+      }
+    });
+    ctx.globalAlpha=1;
+    requestAnimationFrame(draw);
+  }
+  init();draw();
+  window.addEventListener('resize',init);
+})();
+
+/* ── SPLASH ── */
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('splash').classList.add('out');
+    setTimeout(()=>document.getElementById('envScreen').classList.add('show'),500);
+  },3400);
+});
+
+/* ── OPEN INVITATION ── */
+function openInv(){
+  const env=document.getElementById('envScreen');
+  const main=document.getElementById('main');
+  const nav=document.getElementById('nav');
+  const mb=document.getElementById('mBtn');
+  env.classList.add('hide');
+  setTimeout(()=>{
+    main.classList.add('show');
+    nav.classList.add('show');
+    mb.classList.add('show');
+    bgm.volume=.25;bgm.play().catch(()=>{});
+    setTimeout(()=>document.getElementById('hero').classList.add('hero-live'),150);
+  },600);
+}
+
+/* ── MUSIC ── */
+const bgm=document.getElementById('bgm');
+const mb=document.getElementById('mBtn');
+mb.addEventListener('click',()=>{
+  if(bgm.paused){bgm.volume=.25;bgm.play().then(()=>mb.classList.add('on')).catch(()=>{})}
+  else{bgm.pause();mb.classList.remove('on')}
+});
+
+/* ── REVEAL OBSERVER ── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}});
+},{threshold:.1});
+document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-s').forEach(el=>obs.observe(el));
+
+/* ── COUNTDOWN ── */
+const wedding=new Date('2026-04-23T00:05:00+05:30');
+function tick(){
+  const diff=wedding-new Date();
+  if(diff<=0){['cdD','cdH','cdM','cdS'].forEach(id=>document.getElementById(id).textContent='00');return}
+  document.getElementById('cdD').textContent=String(Math.floor(diff/86400000)).padStart(2,'0');
+  document.getElementById('cdH').textContent=String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+  document.getElementById('cdM').textContent=String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+  document.getElementById('cdS').textContent=String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+}
+tick();setInterval(tick,1000);
+
+/* ── SMOOTH SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}
+  });
+});
+
+/* ── LIGHTBOX ── */
+function openLb(el){
+  const img=el.querySelector('img');
+  if(!img)return;
+  document.getElementById('lbImg').src=img.src;
+  document.getElementById('lb').classList.add('open');
+}
+function closeLb(){document.getElementById('lb').classList.remove('open')}
+document.getElementById('lb').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLb()});
+</script>
+</body>
+</html>
